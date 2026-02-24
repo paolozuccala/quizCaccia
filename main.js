@@ -2,11 +2,12 @@ console.log("SCRIPT ESEGUITO");
 
 /*
   main.js aggiornato:
+  - Exam: timer 10 minuti, compare solo in esame
   - Training: feedback immediato, evidenzia corretta in verde, non permette tornare indietro
-  - Exam: timer 10 minuti, nessun feedback immediato, possibilità di cambiare risposta e tornare indietro
   - Stop button: "Stop" in training, "Consegna Esame" in exam
-  - Fine sessione: riepilogo con conteggio risposte corrette per materia (non percentuali)
-  - EXAM_SPEC aggiornato secondo richiesta
+  - Riepilogo training: considera solo le domande a cui l'utente ha risposto prima di premere Stop
+  - Riepilogo mostra conteggio corrette per materia (non percentuali)
+  - EXAM_SPEC: legislazione 14, zoologia 7, agricoltura 4, armi 4, pronto soccorso 1
 */
 
 let allQuestions = [];
@@ -51,7 +52,6 @@ nextBtn.addEventListener("click", nextQuestion);
 prevBtn.addEventListener("click", prevQuestion);
 stopBtn.addEventListener("click", () => {
   if (currentMode === "exam") {
-    // confirm final submission
     if (!confirm("Sei sicuro di voler consegnare l'esame?")) return;
   } else {
     if (!confirm("Vuoi interrompere la sessione di training?")) return;
@@ -246,32 +246,48 @@ function prevQuestion() {
   }
 }
 
-/* END SESSION: show per-subject correct counts */
+/* END SESSION: show per-subject correct counts
+   - Training: consider only questions the user answered (selectedAnswers[i] != null)
+   - Exam: consider all sessionQuestions (unanswered count as incorrect)
+*/
 function endSession() {
   if (examTimerInterval) {
     clearInterval(examTimerInterval);
     examTimerInterval = null;
   }
 
-  // compute correct counts per subject
   const perSubject = {};
   sessionQuestions.forEach((q, i) => {
     const subj = q.subject || "altro";
-    if (!perSubject[subj]) perSubject[subj] = { correct: 0, total: 0 };
-    perSubject[subj].total++;
-    if (selectedAnswers[i] === q.correct) perSubject[subj].correct++;
+    if (!perSubject[subj]) perSubject[subj] = { correct: 0, totalAnswered: 0 };
+    // Training: count only if user answered this question
+    if (currentMode === "training") {
+      if (selectedAnswers[i] != null) {
+        perSubject[subj].totalAnswered++;
+        if (selectedAnswers[i] === q.correct) perSubject[subj].correct++;
+      }
+    } else {
+      // Exam: every question in sessionQuestions counts toward total (answered or not)
+      perSubject[subj].totalAnswered++;
+      if (selectedAnswers[i] === q.correct) perSubject[subj].correct++;
+    }
   });
 
-  // build summary text: show counts per subject (correct / total)
+  // build summary text: show counts per subject (correct / answered or total)
   let out = "";
   const subjectsSorted = Object.keys(perSubject).sort();
   subjectsSorted.forEach(s => {
-    out += `${s}: ${perSubject[s].correct} / ${perSubject[s].total} corrette\n`;
+    out += `${s}: ${perSubject[s].correct} / ${perSubject[s].totalAnswered} corrette\n`;
   });
 
-  // overall total
+  // overall total (for training counts only answered questions)
+  const totalAnswered = sessionQuestions.reduce((acc, q, i) => {
+    if (currentMode === "training") return acc + (selectedAnswers[i] != null ? 1 : 0);
+    return acc + 1;
+  }, 0);
   const totalCorrect = sessionQuestions.reduce((acc, q, i) => acc + (selectedAnswers[i] === q.correct ? 1 : 0), 0);
-  out += `\nTotale corrette: ${totalCorrect} / ${sessionQuestions.length}`;
+
+  out += `\nTotale corrette: ${totalCorrect} / ${totalAnswered}`;
 
   summaryText.textContent = out;
 
