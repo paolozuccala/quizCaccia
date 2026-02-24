@@ -1,3 +1,5 @@
+REMINDER: inserire "training" per materia!!!
+
 QUIZ CACCIA – README
 DESCRIZIONE DEL PROGETTO
 Quiz Caccia è un’applicazione web progettata per esercitarsi alle domande dell’esame venatorio.
