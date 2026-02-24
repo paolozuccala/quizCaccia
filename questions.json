@@ -306,5 +306,20 @@
     "options": ["Il tordo bottaccio", "La rondine", "La pernice rossa"],
     "correct": 2,
     "subject": "zoologia"
+  },
+  {
+    "id": 4006,
+    "question": "I ripopolamenti con fauna selvatica di provenienza dall'estero quali conseguenze possono portare?",
+    "options": ["Miglioramento genetico", "Inquinamento genetico e introduzione di malattie", "Non portano particolari conseguenze"],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4007,
+    "question": "Quale di questi uccelli è un tetranoide?",
+    "options": ["L'acquila reale", "La coturnice", "Il gallo cedrone"],
+    "correct": 2,
+    "subject": "zoologia"
   }
  ]
+
