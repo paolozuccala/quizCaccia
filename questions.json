@@ -1,30 +1,275 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "question": "Le zone di ripopolamento e cattura a cosa sono destinate?",
     "options": ["A tutelare l'agricoltura", "Alla riproduzione naturale e successiva cattura di fauna stanziale", "Al rifugio e alla riproduzione della fauna selvatica in generale"],
     "correct": 1,
     "subject": "agricoltura"
   },
   {
-    "id": 1000,
+    "id": 2,
+    "question": "La legge regionale lombarda prevede che l'attività venatoria sia consentita purché?",
+    "options": ["Non arrechi danno alle produzioni agricole", "Non arrechi disturbo alla cittadinanza", "Non vada oltre il 31 gennaio di ogni anno"],
+    "correct": 0,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 3,
+    "question": "Quale tipo di coltura è preferita come pastura del colombaccio?",
+    "options": ["La soia", "La barbabietola da zucchero", "Il mais"],
+    "correct": 2,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 4,
+    "question": "Cosa si intende per 'catena alimentare'?",
+    "options": ["L'insieme dei rapporti tra gli organismi di un ecosistema", "L'abbondanza di alimenti nell'ambiente", "La lotta per la sopravvivenza tra predatori e prede"],
+    "correct": 0,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 5,
+    "question": "Come si definiscono gli organismi alla bse di ogni catena alimentare?",
+    "options": ["Produttori", "Consumatori", "Decompositori"],
+    "correct": 0,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 6,
+    "question": "Come si manifesta principalmente, in molte specie di uccelli, il dimorfismo sessuale?",
+    "options": ["Nelle diverse colorazioni del piumaggio", "Nelle diverse abitudini di vita", "Nelle diverse velocità del volo"],
+    "correct": 0,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 7,
+    "question": "In una catena alimentare, quali animali carnivori sono definiti 'superpredatori'?",
+    "options": ["Quelli che si cibano di grandi erbivori", "Quelli che si cibano di altri carnivori", "Quelli che si cibano sia di erbivori che di altri carnivori"],
+    "correct": 2,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 8,
+    "question": "Perché i rapaci rispetto ad altri uccelli risentono maggiormente dell'effetto dell'inquinamento da diserbanti e insetticidi?",
+    "options": ["Perché hanno un'alimentazione costituita in prevalenza da giovani nidiacei", "Perché, trovandosi al vertice della catena alimentare, risentono del fenomeno di accumulo di tali veleni", "Perché predano solo avifauna che si nutre di graminacee coltivate"],
+    "correct": 1,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 9,
+    "question": "Nei rapaci diurni dell'ordine Falconiformi, il maschio è?",
+    "options": ["Più grande della femmina", "Più piccolo della femmina", "Più colorato della femmina"],
+    "correct": 1,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 10,
+    "question": "In una catena alimentare, la lepre comune è?",
+    "options": ["Un consumatore", "Un produttore", "Un decompositore"],
+    "correct": 0,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 11,
+    "question": "In una catena alimentare, quale tra i seguenti carnivori è un 'superpredatore'?",
+    "options": ["La volpe", "La martora", "Il lupo"],
+    "correct": 2,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 12,
+    "question": "Perché alcune specie di fauna selvatica si dicono insettivore?",
+    "options": ["Perché si cibano anche di insetti", "Perché si cibano prevalentemente di insetti", "Perché hanno le ali come gli insetti"],
+    "correct": 1,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 13,
+    "question": "Perché nella zona delle Alpi i periodi di caccia sono più limitati?",
+    "options": ["Perché nevica molto", "Perché la tipica avifauna alpina cova in anticipo", "Perché la fauna stanziale alpina va maggiormente tutelata"],
+    "correct": 2,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 14,
+    "question": "Che cos'è l'ecologia?",
+    "options": ["La scienza che tratta il comportamento degli animali", "La scienza che studia le relazioni tra gli esseru viventi e l'ambiente in cui vivono", "La scienza che studia il fenomeno delle migrazioni"],
+    "correct": 1,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 15,
+    "question": "La meccanizzazione agricola giova o nuoce alla fauna selvatica?",
+    "options": ["Giova", "Nuoce", "È indifferente"],
+    "correct": 1,
+    "subject": "agricoltura"
+  },
+  {
+    "id": 1001,
     "question": "Che cos'è l'emorragia?",
     "options": ["Fuoriuscita di sangue in abbondante quantità da una ferita", "Violente scariche diarroiche", "Perdita di urina"],
     "correct": 0,
     "subject": "pronto soccorso"
   },
   {
-    "id": 2000,
+    "id": 1002,
+    "question": "L'emorragia può essere:",
+    "options": ["Solo arteriosa", "Solo venosa", "Arteriosa e venosa"],
+    "correct": 2,
+    "subject": "pronto soccorso"
+  },
+  {
+    "id": 1003,
+    "question": "Quali sono le parti più colpite da congelamento?",
+    "options": ["Le mani", "I polmoni", "Le estremità degli arti, naso e orecchie"],
+    "correct": 2,
+    "subject": "pronto soccorso"
+  },
+  {
+    "id": 1004,
+    "question": "Quali sono i sintomi di assideramento?",
+    "options": ["Apatia, difficoltà nel linguaggio, del movimento, pallore, difficoltà respiratorie", "Euforia", "Lentezza nei movimenti ed euforia"],
+    "correct": 0,
+    "subject": "pronto soccorso"
+  },
+  {
+    "id": 1005,
+    "question": "Che cos'è il colpo di calore?",
+    "options": ["È una lesione da contatto con un materiale troppo caldo", "È il calore che si sviluppa dopo un'abbondante libagione", "Eccessivo aumento della temperatura corporea conseguente a una lunga esposizione ad alta temperatura"],
+    "correct": 2,
+    "subject": "pronto soccorso"
+  },
+  {
+    "id": 2001,
     "question": "Nelle zone militari delimitate da tabelle si può cacciare?",
     "options": ["Sì, ma solo i militari", "No", "Sì, ma solo da appostamento fisso"],
     "correct": 1,
     "subject": "legislazione"
   },
   {
-    "id": 3000,
+    "id": 2002,
+    "question": "In quale intervallo percentuale il territorio agro-silvo-pastorale regionale in zona Alpi è destinato a protezione della fauna selvatica?",
+    "options": ["Dal 10% al 20%", "Dal 20% al 30%", "Dal 30% al 40%"],
+    "correct": 0,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2003,
+    "question": "In quale intervallo percentuale il territorio agro-silvo-pastorale regionale fuori zona Alpi è destinato a protezione della fauna selvatica?",
+    "options": ["Dal 10% al 20%", "Dal 30% al 50%", "Dal 20% al 30%"],
+    "correct": 2,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2004,
+    "question": "A quale distanza minima occorre stare per poter sparare in direzione di una strada provinciale?",
+    "options": ["100 metri", "150 metri", "300 metri"],
+    "correct": 1,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2005,
+    "question": "È consentito cacciare il beccaccino da appostamento?",
+    "options": ["No", "Sì, sempre", "Sì, ma solo se temporaneo"],
+    "correct": 0,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2006,
+    "question": "È consentito cacciare all'aspetto la beccaccia?",
+    "options": ["Mai", "Sì", "Solo al limite del bosco"],
+    "correct": 0,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2007,
+    "question": "È consentita la caccia su terreno totalmente coperto da neve?",
+    "options": ["No, mai", "Sì, sempre", "No, salvo che in zona Alpi"],
+    "correct": 2,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2008,
+    "question": "Su uno specchio d'acqua gelato quando si può cacciare?",
+    "options": ["Sempre", "Solo se non è in tutto o nella maggior parte coperto da ghiaccio", "Mai"],
+    "correct": 1,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2009,
+    "question": "Quando si può cacciare la lepre comune in un vivaio?",
+    "options": ["Solo a scopo di addestramento del cane", "In nessun caso", "Quando si ha il consenso del proprietario"],
+    "correct": 1,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2010,
+    "question": "A quale distanza minima da una superstrada si può sparare in direzione opposta a essa?",
+    "options": ["50 metri", "100 metri", "150 metri"],
+    "correct": 0,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2011,
+    "question": "Quando si può esercitare la caccia a bordo di autoveicoli?",
+    "options": ["Solo quando sono fermi", "Mai", "Solo sulle strade poderali e interpoderali"],
+    "correct": 1,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2012,
+    "question": "È consentito esercitare la caccia a 80 metri da una casa?",
+    "options": ["No, la distanza minima consentita è 100 metri", "No, la distanza minima consentita è 150 metri", "Si, purché si spari in direzione opposta"],
+    "correct": 0,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2013,
+    "question": "È consentito sparare a bordo di un trattore?",
+    "options": ["Sì", "Mai", "Sì, purché non sia in movimento"],
+    "correct": 1,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2014,
+    "question": "A quale distanza minima è consentito sparare in direzione di case, strade, posti di lavoro?",
+    "options": ["100 metri", "150 metri", "300 metri"],
+    "correct": 1,
+    "subject": "legislazione"
+  },
+  {
+    "id": 2015,
+    "question": "A quale distanza minima si può sparare avendi alle spalle una strada comunale?",
+    "options": ["100 metri", "50 metri", "150 metri"],
+    "correct": 1,
+    "subject": "legislazione"
+  },
+  {
+    "id": 3001,
     "question": "Si può lasciare il fucile da caccia in automobile chiusa e con l'antifurto inserito?",
     "options": ["Sì, ma solo se scarico", "Solo nei giorni di caccia consentita", "No, mai, perché reato di omessa custodia"],
     "correct": 2,
+    "subject": "armi"
+  },
+  {
+    "id": 3002,
+    "question": "Come si presenta l'interno di una canna rigata?",
+    "options": ["Con rigature perpendicolari alla lunghezza della canna", "Con rigature concentriche al vivo di volata", "Con rilievi ad andamento elicoidale"],
+    "correct": 2,
+    "subject": "armi"
+  },
+  {
+    "id": 3003,
+    "question": "Quale di questi fucili ad anima liscia è consentito?",
+    "options": ["Fucile a cinque colpi", "Fucile a quattro colpi", "Fucile con serbatoio in grado di contenere non più di due cartucce"],
+    "correct": 2,
+    "subject": "armi"
+  },
+  {
+    "id": 3004,
+    "question": "Qual è la distanza media di tiro utile per un fucile a canna liscia con munizione spezzata?",
+    "options": ["35 metri", "70 metri", "90 metri"],
+    "correct": 0,
     "subject": "armi"
   },
   {
