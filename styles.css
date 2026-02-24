@@ -6,6 +6,8 @@
   --muted:#666;
   --accent:#d0e7ff;
   --gap:14px;
+  --correct:#2e9b2e;
+  --incorrect:#d9534f;
 }
 
 *{box-sizing:border-box}
@@ -132,13 +134,13 @@ header h1 {
 
 .options button.correct {
   background: #e6f7e6;
-  border-color: #2e9b2e;
+  border-color: var(--correct);
   color: #0b5a0b;
 }
 
 .options button.incorrect {
   background: #ffecec;
-  border-color: #d9534f;
+  border-color: var(--incorrect);
   color: #7a1b1b;
 }
 
@@ -165,6 +167,15 @@ header h1 {
   border-radius:8px;
   border:1px solid #eee;
 }
+
+/* Detailed exam answers list */
+.exam-list { margin-top:12px; display:flex; flex-direction:column; gap:12px; }
+.exam-item { padding:12px; border-radius:8px; background:#fff; border:1px solid #eee; }
+.exam-item .q { font-weight:700; margin-bottom:6px; }
+.exam-item .meta { font-size:0.9rem; color:var(--muted); margin-bottom:8px; }
+.exam-item .ans { padding:8px; border-radius:6px; margin-bottom:6px; }
+.ans.correct { background:#e6f7e6; border:1px solid var(--correct); color:#0b5a0b; }
+.ans.incorrect { background:#ffecec; border:1px solid var(--incorrect); color:#7a1b1b; }
 
 /* Responsive */
 @media (max-width:520px){
