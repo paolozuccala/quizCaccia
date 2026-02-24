@@ -1,4 +1,4 @@
-// script.js - Quiz Caccia con modalità Esame
+// script.js - Quiz Caccia con modalità Esame e Training continuo
 const EXAM_SPEC = {
   "legislazione": 14,
   "zoologia": 7,
@@ -18,8 +18,6 @@ let legislationErrors = 0;
 let perSubjectStats = {};
 
 const startBtn = document.getElementById('startBtn');
-const numInput = document.getElementById('numQuestions');
-const fileInput = document.getElementById('fileInput');
 const setup = document.getElementById('setup');
 const quiz = document.getElementById('quiz');
 const questionBox = document.getElementById('questionBox');
@@ -52,69 +50,39 @@ function resetSubjectStats(){
   Object.keys(EXAM_SPEC).forEach(s => perSubjectStats[s] = {asked:0, correct:0, errors:0});
 }
 
-function loadQuestionsFromFileObject(obj){
-  if(Array.isArray(obj) && obj.length){
-    // basic validation
-    const ok = obj.every(q => q.question && Array.isArray(q.options) && typeof q.correct === 'number' && q.subject);
-    if(ok) {
-      allQuestions = obj.map(q => ({...q, subject: q.subject.trim().toLowerCase()}));
+function loadQuestionsFromFetched(data){
+  if(Array.isArray(data) && data.length){
+    const ok = data.every(q => q.question && Array.isArray(q.options) && typeof q.correct === 'number' && q.subject);
+    if(ok){
+      allQuestions = data.map(q => ({...q, subject: q.subject.trim().toLowerCase()}));
       return true;
     }
   }
   return false;
 }
 
-function readLocalQuestionsFile(file){
-  const reader = new FileReader();
-  reader.onload = e => {
-    try{
-      const data = JSON.parse(e.target.result);
-      if(loadQuestionsFromFileObject(data)){
-        alert(`Caricate ${data.length} domande dal file.`);
-      } else {
-        alert('Formato JSON non valido. Ogni domanda deve avere question, options, correct, subject.');
-      }
-    }catch(err){
-      alert('Errore parsing JSON: ' + err.message);
-    }
-  };
-  reader.readAsText(file, 'utf-8');
-}
-
-fileInput.addEventListener('change', (ev) => {
-  const f = ev.target.files[0];
-  if(f) readLocalQuestionsFile(f);
-});
-
-// mode radio handling
-document.querySelectorAll('input[name="mode"]').forEach(r => {
-  r.addEventListener('change', () => {
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-    trainingControls.style.display = mode === 'training' ? 'block' : 'none';
+window.addEventListener('load', () => {
+  // prova a caricare questions.json dalla root (quando ospitato)
+  fetch('questions.json').then(r => {
+    if(r.ok) return r.json();
+    throw new Error('no file');
+  }).then(data => {
+    if(!loadQuestionsFromFetched(data)) throw new Error('invalid');
+  }).catch(()=> {
+    // fallback a sample
+    allQuestions = SAMPLE_QUESTIONS.slice();
   });
 });
 
-// start
+// utility shuffle
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a; }
+
 startBtn.addEventListener('click', startSession);
 nextBtn.addEventListener('click', nextQuestion);
 stopBtn.addEventListener('click', showSummary);
 restartBtn.addEventListener('click', resetToSetup);
 
-window.addEventListener('load', () => {
-  // try to fetch questions.json from same folder (useful when hosted)
-  fetch('questions.json').then(r => {
-    if(r.ok) return r.json();
-    throw new Error('no file');
-  }).then(data => {
-    if(!loadQuestionsFromFileObject(data)) throw new Error('invalid');
-  }).catch(()=> {
-    // fallback to sample
-    allQuestions = SAMPLE_QUESTIONS.slice();
-  });
-});
-
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a; }
-
+// start session: training o exam
 function startSession(){
   if(!allQuestions.length){ alert('Nessuna domanda disponibile.'); return; }
   resetSubjectStats();
@@ -125,10 +93,11 @@ function startSession(){
 
   const mode = document.querySelector('input[name="mode"]:checked').value;
   if(mode === 'training'){
-    let n = Math.max(1, Math.min(allQuestions.length, parseInt(numInput.value) || 1));
-    sessionQuestions = shuffle(allQuestions.slice()).slice(0, n);
+    // Training continuo: usa tutte le domande in ordine casuale e, se finiscono, ricomincia
+    sessionQuestions = shuffle(allQuestions.slice());
+    progressTotal.textContent = '∞';
   } else {
-    // exam mode: group by subject and sample per EXAM_SPEC
+    // Exam mode: selezione per materia secondo EXAM_SPEC
     const grouped = {};
     allQuestions.forEach(q => grouped[q.subject] = grouped[q.subject] || [] , grouped[q.subject].push(q));
     const missing = [];
@@ -149,15 +118,16 @@ function startSession(){
       sessionQuestions = sessionQuestions.concat(shuffle(pool).slice(0, need));
     }
     sessionQuestions = shuffle(sessionQuestions);
+    progressTotal.textContent = sessionQuestions.length;
   }
 
-  progressTotal.textContent = sessionQuestions.length;
   setup.classList.add('hidden');
   summary.classList.add('hidden');
   quiz.classList.remove('hidden');
   nextQuestion();
 }
 
+// render domanda corrente
 function renderQuestion(q){
   subjectTag.textContent = q.subject ? q.subject.toUpperCase() : '';
   questionBox.textContent = q.question;
@@ -174,6 +144,7 @@ function renderQuestion(q){
   progressCurrent.textContent = askedCount + 1;
 }
 
+// gestione selezione
 function selectOption(selectedIdx, correctIdx, btn){
   Array.from(optionsDiv.children).forEach(el => {
     el.classList.add('disabled');
@@ -197,19 +168,28 @@ function selectOption(selectedIdx, correctIdx, btn){
   progressCurrent.textContent = askedCount;
 }
 
+// prossima domanda
 function nextQuestion(){
   currentIndex++;
+  // se in training e finisco le domande, ricomincio con nuovo shuffle
+  const mode = document.querySelector('input[name="mode"]:checked').value;
   if(currentIndex >= sessionQuestions.length){
-    showSummary();
-    return;
+    if(mode === 'training'){
+      sessionQuestions = shuffle(allQuestions.slice());
+      currentIndex = 0;
+    } else {
+      showSummary();
+      return;
+    }
   }
   renderQuestion(sessionQuestions[currentIndex]);
 }
 
+// riepilogo
 function showSummary(){
   quiz.classList.add('hidden');
   summary.classList.remove('hidden');
-  const total = sessionQuestions.length;
+  const total = (document.querySelector('input[name="mode"]:checked').value === 'training') ? askedCount : sessionQuestions.length;
   const errors = total - correctCount;
   let text = `Hai risposto correttamente a ${correctCount} domande su ${total}.\nErrori totali: ${errors}\n\nDettaglio per materia:\n`;
   for(const [subj, stats] of Object.entries(perSubjectStats)){
@@ -223,16 +203,15 @@ function showSummary(){
     text += '\nRisultato: ' + (passed ? 'PROMOSSO ✅' : 'NON PROMOSSO ❌') + '\n';
     if(!passed){ text += 'Motivi:\n' + reasons.map(r => '- ' + r).join('\n') + '\n'; }
   } else {
-    const pct = total > 0 ? (correctCount / total) * 100 : 0;
-    text += `\nPercentuale di risposte corrette: ${pct.toFixed(1)}%`;
+    // Training: mostra solo errori su totale (nessuna percentuale)
+    text += `\nRiepilogo Training: errori ${errors} su ${total} domande.`;
   }
   summaryText.textContent = text;
 }
 
+// reset
 function resetToSetup(){
   summary.classList.add('hidden');
   quiz.classList.add('hidden');
   setup.classList.remove('hidden');
-  // reset file input
-  fileInput.value = '';
 }
