@@ -27,15 +27,25 @@
       </div>
     </section>
 
+    <!-- TIMER ESAME -->
+    <div id="examTimer" class="examTimer hidden">
+      ⏳ Tempo rimasto: <span id="timerValue">10:00</span>
+    </div>
+
     <section id="quiz" class="card hidden">
-      <div id="progress" class="progress">Domanda <span id="currentNum">0</span> / <span id="totalNum">0</span></div>
+      <div id="progress" class="progress">
+        Domanda <span id="currentNum">0</span> / <span id="totalNum">0</span>
+      </div>
+
       <div id="subjectTag" class="subjectTag"></div>
       <div id="questionBox" class="questionBox"></div>
+
       <div id="options" class="options" role="list"></div>
 
-      <div class="controls">
+      <div class="controls quiz-controls">
+        <button id="prevBtn" class="btn">Indietro</button>
         <button id="nextBtn" class="btn" disabled>Prossima domanda</button>
-        <button id="stopBtn" class="btn danger">Stop</button>
+        <button id="stopBtn" class="btn danger">Consegna Esame</button>
       </div>
     </section>
 
@@ -55,5 +65,3 @@
   <script src="main.js"></script>
 </body>
 </html>
-
-
