@@ -755,6 +755,336 @@
     ],
     "correct": 2,
     "subject": "zoologia"
-  }
+  },
+  {
+  "id": 4049,
+  "question": "Un ambiente di pianura irrigua a monocoltura come può essere arricchito ai fini faunistici?",
+  "options": [
+    "Impiantando siepi tra un appezzamento e l'altro",
+    "Ricavando pozze d'acqua per l'abbeverata",
+    "È ottimale, non occorre intervenire"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4050,
+  "question": "Cosa significa cavicorno?",
+  "options": [
+    "Corna ramificate",
+    "Corna internamente vuote",
+    "Corna internamente piene"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4051,
+  "question": "Cosa significa caccia di selezione?",
+  "options": [
+    "Una battuta di caccia con cacciatori scelti",
+    "Una caccia diretta ad abbattere determinati capi solo dopo censimenti della popolazione oggetto di caccia",
+    "Una caccia diretta ad abbattere solo maschi o capi debilitati o malati"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4052,
+  "question": "Lo springer spaniel è un cane:",
+  "options": [
+    "Da ferma",
+    "Da cerca e riporto",
+    "Da riporto"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4053,
+  "question": "Com'è da considerarsi la volpe?",
+  "options": [
+    "Specie protetta da non abbattere mai",
+    "Specie dannosa da abbattere sempre",
+    "Specie cacciabile in un determinato periodo"
+  ],
+  "correct": 2,
+  "subject": "zoologia"
+},
+{
+  "id": 4054,
+  "question": "Quante sottospecie di lepri vivono in Lombardia?",
+  "options": [
+    "Due",
+    "Tre",
+    "Cinque"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4055,
+  "question": "Quali mammiferi si cacciano in maniera classica con i cani da seguita?",
+  "options": [
+    "Volpe e lepre",
+    "Volpe, lepre e cinghiale",
+    "Cinghiale e capriolo"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4056,
+  "question": "Come si definisce una collezione di uccelli imbalsamati?",
+  "options": [
+    "Ornitologica",
+    "Erpetologica",
+    "Entomologica"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4057,
+  "question": "Il kurzhaar è bracco tedesco è un cane:",
+  "options": [
+    "Da cerca e riporto",
+    "Da ferma",
+    "Da tana"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4058,
+  "question": "I cani da ferma in linea di massima, sono selezionati per cacciare quali specie di fauna selvatica?",
+  "options": [
+    "L'avifauna stanziale",
+    "La lepre",
+    "La volpe e il cinghiale"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4059,
+  "question": "Quali delle seguenti specie sono cacciate in modo specifico con i cani da seguita?",
+  "options": [
+    "Beccaccia e beccaccino",
+    "Quaglia e fagiano",
+    "Lepre e cinghiale"
+  ],
+  "correct": 2,
+  "subject": "zoologia"
+},
+{
+  "id": 4060,
+  "question": "Quali tra le seguenti razze canine sono più idonee a cacciare nelle paludi?",
+  "options": [
+    "Lo spinone italiano e il setter gordon",
+    "Il pointer e il bracco italiano",
+    "Il setter inglese e il viszla"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4061,
+  "question": "Com'è l'andatura del pointer?",
+  "options": [
+    "Un galoppo impetuoso",
+    "Un galoppo moderato e controllato",
+    "Un trotto allungato"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4062,
+  "question": "Com'è l'andatura del bracco italiano?",
+  "options": [
+    "Un trotto",
+    "Un galoppo",
+    "Un misto di trotto e galoppo"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4063,
+  "question": "Che cos'è la filata?",
+  "options": [
+    "L'attenzione del cane quando percepisce l'emanazione di un selvatico",
+    "Defilarsi del cane in allontanamento dal conduttore",
+    "Seguire un solco da un capo all'altro del terreno"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4064,
+  "question": "Che cos'è l'accostata?",
+  "options": [
+    "Il cane che si accosta al cacciatore",
+    "Il cane che si accosta al terreno di caccia",
+    "Il cane che avvicina il selvatico immobile dopo averlo fermato"
+  ],
+  "correct": 2,
+  "subject": "zoologia"
+},
+{
+  "id": 4065,
+  "question": "Che cos'è la ferma?",
+  "options": [
+    "L'irrigidimento del cane al cospetto del selvatico",
+    "Il fermare una lepre che fugge",
+    "Fermarsi al secco richiamo del padrone"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4066,
+  "question": "Che cos'è la ferma in bianco?",
+  "options": [
+    "E' una ferma a vuoto",
+    "E' una ferma su selvatico a vista",
+    "Fermarsi in attesa del conduttore"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4067,
+  "question": "Che cos'è la ferma di consenso?",
+  "options": [
+    "Rispetto categorico di un altro cane in ferma",
+    "Fermarsi al comando del cacciatore",
+    "Fermarsi per aspettare il cane compagno di caccia"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4068,
+  "question": "Che cos'è l'accostamento di un segugio?",
+  "options": [
+    "Accostarsi al selvatico in fuga",
+    "La cerca a contatto col conduttore",
+    "Accostare un selvatico da pelo dalla pastura al covo seguendo la passata notturna"
+  ],
+  "correct": 2,
+  "subject": "zoologia"
+},
+{
+  "id": 4069,
+  "question": "Che cos'è la traccia?",
+  "options": [
+    "L'impronta odorosa che un selvatico lascia sul terreno",
+    "Le vestigia notturne del selvatico",
+    "Il cammino percorso da un cane in cerca"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4070,
+  "question": "Che cos'è la canizza?",
+  "options": [
+    "Coro ben orchestrato di voci di una muta che insegue",
+    "Coro di voci di segugi che accostano",
+    "Vociarci di cani impazienti di essere sguinzagliati sulla traccia"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4071,
+  "question": "È difetto per un segugio non dare voce sulla pastura cacciando la lepre comune?",
+  "options": [
+    "Sì",
+    "No",
+    "È un pregio"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4072,
+  "question": "Come uno springer spaniel segnala la vicinanza di un selvatico?",
+  "options": [
+    "Irrigidendosi nella ferma",
+    "Agitando freneticamente la coda",
+    "Fermandosi ad attendere il conduttore"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4073,
+  "question": "Qual è l'ambiente tipico della starna?",
+  "options": [
+    "L'alta montagna",
+    "Le zone ad agricoltura intensiva",
+    "Le zone ad agricoltura differenziata"
+  ],
+  "correct": 2,
+  "subject": "zoologia"
+},
+{
+  "id": 4074,
+  "question": "Quale delle seguenti razze canine è utilizzata tipicamente sulla pista di sangue degli ungulati feriti?",
+  "options": [
+    "Petit bleu des gascogne",
+    "Segugio hannoveriano",
+    "Segugio italiano"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4075,
+  "question": "La lepre comune scava cunicoli e gallerie sotterranee?",
+  "options": [
+    "Solo nel periodo invernale per maggior riparo",
+    "Mai",
+    "Tutto l'anno"
+  ],
+  "correct": 1,
+  "subject": "zoologia"
+},
+{
+  "id": 4076,
+  "question": "Di quali aree della Lombardia la pernice rossa è specie originaria?",
+  "options": [
+    "Alte pianure brianzole",
+    "Colline moreniche del Garda",
+    "Appennino dell'Oltrepò pavese"
+  ],
+  "correct": 2,
+  "subject": "zoologia"
+},
+{
+  "id": 4077,
+  "question": "In un volatile cosa sono le remiganti?",
+  "options": [
+    "Le penne delle ali",
+    "Le penne della coda",
+    "Le piume del corpo"
+  ],
+  "correct": 0,
+  "subject": "zoologia"
+},
+{
+  "id": 4078,
+  "question": "In un volatile cosa sono le timoniere?",
+  "options": [
+    "Le penne delle ali",
+    "Le piume del corpo",
+    "Le penne della coda"
+  ],
+  "correct": 2,
+  "subject": "zoologia"
+}
  ]
 
