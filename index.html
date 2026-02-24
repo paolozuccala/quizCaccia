@@ -15,7 +15,7 @@
 
     <section id="setup" class="card">
       <div class="row">
-        <label>Modalità</label>
+        <label class="label-inline">Modalità</label>
         <div class="mode">
           <label><input type="radio" name="mode" value="training" checked /> Training</label>
           <label><input type="radio" name="mode" value="exam" /> Esame</label>
@@ -28,11 +28,17 @@
     </section>
 
     <!-- TIMER ESAME -->
-    <div id="examTimer" class="examTimer hidden">
-      ⏳ Tempo rimasto: <span id="timerValue">10:00</span>
+    <div id="examTimer" class="examTimer hidden" aria-live="polite">
+      <div class="timerInner">
+        <span class="timerIcon">⏳</span>
+        <div class="timerText">
+          <div class="timerLabel">Tempo rimasto</div>
+          <div id="timerValue" class="timerValue">10:00</div>
+        </div>
+      </div>
     </div>
 
-    <section id="quiz" class="card hidden">
+    <section id="quiz" class="card hidden" aria-live="polite">
       <div id="progress" class="progress">
         Domanda <span id="currentNum">0</span> / <span id="totalNum">0</span>
       </div>
@@ -43,15 +49,20 @@
       <div id="options" class="options" role="list"></div>
 
       <div class="controls quiz-controls">
-        <button id="prevBtn" class="btn">Indietro</button>
-        <button id="nextBtn" class="btn" disabled>Prossima domanda</button>
-        <button id="stopBtn" class="btn danger">Consegna Esame</button>
+        <div class="left-controls">
+          <button id="prevBtn" class="btn">Indietro</button>
+        </div>
+
+        <div class="right-controls">
+          <button id="nextBtn" class="btn" disabled>Prossima domanda</button>
+          <button id="stopBtn" class="btn danger">Stop</button>
+        </div>
       </div>
     </section>
 
     <section id="summary" class="card hidden">
       <h2>Riepilogo</h2>
-      <pre id="summaryText" class="summaryText"></pre>
+      <div id="summaryText" class="summaryText"></div>
       <div class="controls">
         <button id="restartBtn" class="btn">Ricomincia</button>
       </div>
