@@ -239,7 +239,7 @@
   },
   {
     "id": 2015,
-    "question": "A quale distanza minima si può sparare avendi alle spalle una strada comunale?",
+    "question": "A quale distanza minima si può sparare avendo alle spalle una strada comunale?",
     "options": ["100 metri", "50 metri", "150 metri"],
     "correct": 1,
     "subject": "legislazione"
@@ -318,6 +318,441 @@
     "id": 4007,
     "question": "Quale di questi uccelli è un tetranoide?",
     "options": ["L'acquila reale", "La coturnice", "Il gallo cedrone"],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+  "id": 4008,
+  "question": "Quale di questi mammiferi è un cervide?",
+  "options": ["Il camoscio", "Il capriolo", "Il muflone"],
+  "correct": 1,
+  "subject": "zoologia"
+  },
+  {
+  "id": 4009,
+  "question": "Quale di questi Caradriformi presenta un lungo ciuffo di piume sulla nuca?",
+  "options": ["La beccaccia", "La pavoncella", "Il beccaccino"],
+  "correct": 1,
+  "subject": "zoologia"
+  },
+  {
+  "id": 4010,
+  "question": "Quale di queste specie è strettamente legata all'ambiente acquatico?",
+  "options": ["L'allodola", "La peppola", "La folaga"],
+  "correct": 2,
+  "subject": "zoologia"
+  },
+  {
+  "id": 4011,
+  "question": "Quale delle seguenti specie di uccelli è sedentaria?",
+  "options": ["La marzaiola", "La coturnice", "La beccaccia"],
+  "correct": 1,
+  "subject": "zoologia"
+  },
+  {
+  "id": 4012,
+  "question": "Che cosa si intende per 'doppio passo' di una specie migratrice?",
+  "options": [
+  "Una rincorsa veloce del migratore prima di levarsi in volo",
+  "Il modo di camminare del migratore quando si allontana senza usare le ali",
+  "Il duplice passaggio migratorio, in primavera e in autunno, sui nostri territori"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4013,
+    "question": "Quale di questi animali è un ungulato?",
+    "options": [
+      "Il cinghiale",
+      "La marmotta",
+      "La volpe"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4014,
+    "question": "Normalmente quante volte in un anno partorisce la lepre comune in pianura?",
+    "options": [
+      "Una, raramente due",
+      "Sei",
+      "Tre, raramente quattro"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4015,
+    "question": "Di cosa si nutrono in prevalenza i rapaci notturni?",
+    "options": [
+      "Di piccoli uccelli",
+      "Di topi, ratti e altri piccoli mammiferi",
+      "Di lepri e conigli adulti"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4016,
+    "question": "Quale specie di passero vive più facilmente a contatto con l’uomo?",
+    "options": [
+      "La passera mattugia",
+      "La passera d’Italia",
+      "La passera oltremontana"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4017,
+    "question": "In natura quali animali sono più facilmente predati dai rapaci?",
+    "options": [
+      "Quelli giovani e debilitati",
+      "Giovani e adulti indifferentemente",
+      "Quelli adulti"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4018,
+    "question": "Di cosa si nutre prevalentemente la volpe?",
+    "options": [
+      "Fagiani e lepri",
+      "Galline e pollame domestico",
+      "Roditori, piccoli mammiferi e uccelli"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4019,
+    "question": "Quale di queste anatre di superficie presenta marcati sopraccigli bianchi?",
+    "options": [
+      "La marzaiola",
+      "Il germano reale",
+      "L’alzavola"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4020,
+    "question": "Quale dei seguenti mammiferi è un bovide?",
+    "options": [
+      "Il camoscio",
+      "Il cervo",
+      "Il cinghiale"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4021,
+    "question": "Da che cosa si stabilisce l’età nel camoscio?",
+    "options": [
+      "Dall’esame delle corna",
+      "Dalla lunghezza del pelo",
+      "Dal colore del mantello"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4022,
+    "question": "Il cinghiale può ibridarsi col maiale?",
+    "options": [
+      "Sì",
+      "No, mai",
+      "Sì, ma produce ibridi non fecondi"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4023,
+    "question": "Perché i piccoli di taluni mammiferi come cervidi e cinghiale hanno il mantello a strisce o a macchie?",
+    "options": [
+      "Per farsi riconoscere dagli adulti del branco",
+      "Per mimetizzarsi nell’ambiente",
+      "Per farsi riconoscere dalla madre"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4024,
+    "question": "Fino a quale età i cinghiali mantengono il mantello a strisce?",
+    "options": [
+      "Fino a quattro settimane",
+      "Fino a diciotto mesi circa",
+      "Fino a sei mesi circa"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4025,
+    "question": "Le femmine di cervo hanno i palchi?",
+    "options": [
+      "Sì, ma solo dal secondo anno di vita",
+      "Sì e li perdono annualmente",
+      "No, mai"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4026,
+    "question": "Le femmine del camoscio e dello stambecco hanno le corna e le perdono ogni anno?",
+    "options": [
+      "Le hanno e non le perdono mai",
+      "Le hanno e le perdono ogni autunno",
+      "Le hanno, ma le perde solo la femmina di stambecco"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4027,
+    "question": "Come si chiama il fenomeno per cui un volatile presenta il piumaggio parzialmente o totalmente bianco?",
+    "options": [
+      "Melanismo",
+      "Isabellismo",
+      "Albinismo"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4028,
+    "question": "Le femmine di muflone hanno le corna?",
+    "options": [
+      "Sì, molto evidenti",
+      "No",
+      "Raramente"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4029,
+    "question": "Cos’è la muta degli uccelli?",
+    "options": [
+      "Il cambio stagionale delle penne",
+      "Una fase stagionale in cui non cantano",
+      "La fase della cova delle uova"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4030,
+    "question": "Cosa sono gli ungulati?",
+    "options": [
+      "Sono mammiferi con grande e solide unghie",
+      "Sono uccelli con lunghe unghie",
+      "Sono mammiferi privi di unghie sviluppate"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4031,
+    "question": "Perché alcune specie animali si dicono monogame?",
+    "options": [
+      "Perché maschio e femmina formano coppia fissa",
+      "Perché entrambi i sessi covano",
+      "Perché ogni maschio dispone di più femmine"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4032,
+    "question": "L'usignolo è un insettivoro?",
+    "options": [
+      "Sì",
+      "No",
+      "Dipende dalla stagione dell’anno"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4033,
+    "question": "Che tipo di cane è il setter inglese?",
+    "options": [
+      "Cane da seguita",
+      "Cane da ferma",
+      "Cane da tana"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4034,
+    "question": "Che tipo di cane è il pointer?",
+    "options": [
+      "Cane da ferma",
+      "Cane da seguita",
+      "Cane da pista di sangue"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4035,
+    "question": "Che tipo di cane è il segugio italiano?",
+    "options": [
+      "Cane da cerca e riporto",
+      "Cane da seguita",
+      "Cane da ferma"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4036,
+    "question": "La caccia alla lepre con l’uso di quale cane di solito si effettua?",
+    "options": [
+      "Del bracco italiano",
+      "Dello springer spaniel",
+      "Del segugio"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4037,
+    "question": "Dove vivono i tetraonidi?",
+    "options": [
+      "Nelle zone umide",
+      "Nei terreni forestali collinari",
+      "Nelle zone montane alpine"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4038,
+    "question": "Il cinghiale è:",
+    "options": [
+      "Un bovide",
+      "Un fasianide",
+      "Un suide"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4039,
+    "question": "Il coniglio selvatico è:",
+    "options": [
+      "Un mustelide",
+      "Un leporide",
+      "Un rallide"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4040,
+    "question": "Quale di questi ungulati è caducicorna?",
+    "options": [
+      "Il cervo",
+      "Il camoscio",
+      "Il muflone"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4041,
+    "question": "Quali denti hanno particolarmente sviluppati i roditori?",
+    "options": [
+      "Gli incisivi",
+      "I premolari",
+      "I canini"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4042,
+    "question": "Dove vive la lepre bianca?",
+    "options": [
+      "In zona di pianura",
+      "In zona di montagna",
+      "In zona di media collina"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4043,
+    "question": "In che mese avviene maggiormente il ripasso o migrazione primaverile del fischione?",
+    "options": [
+      "In marzo",
+      "In maggio",
+      "In gennaio"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4044,
+    "question": "Il fagiano di monte è:",
+    "options": [
+      "Un caradriforme",
+      "Un anseriforme",
+      "Un galliforme"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4045,
+    "question": "Il muflone appartiene alla famiglia dei:",
+    "options": [
+      "Suidi",
+      "Bovidi",
+      "Cervidi"
+    ],
+    "correct": 1,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4046,
+    "question": "Quale delle seguenti specie sedentarie ha collare punteggiato e sgocciolato verso il petto?",
+    "options": [
+      "La coturnice",
+      "La starna",
+      "La pernice rossa"
+    ],
+    "correct": 2,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4047,
+    "question": "Quale principale funzione svolgono le zone umide nei riguardi dell’avifauna?",
+    "options": [
+      "Favoriscono la sosta dei migratori acquatici",
+      "Favoriscono la nidificazione dei rapaci notturni",
+      "Favoriscono la nidificazione della fauna stanziale"
+    ],
+    "correct": 0,
+    "subject": "zoologia"
+  },
+  {
+    "id": 4048,
+    "question": "C'è correlazione tra ambiente e fauna selvatica?",
+    "options": [
+      "Nessuna in particolare",
+      "Ci sono correlazioni solo in casi particolari",
+      "Sempre"
+    ],
     "correct": 2,
     "subject": "zoologia"
   }
