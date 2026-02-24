@@ -1,5 +1,14 @@
 console.log("SCRIPT ESEGUITO");
 
+/*
+  main.js aggiornato:
+  - Training: feedback immediato, evidenzia corretta in verde, non permette tornare indietro
+  - Exam: timer 10 minuti, nessun feedback immediato, possibilità di cambiare risposta e tornare indietro
+  - Stop button: "Stop" in training, "Consegna Esame" in exam
+  - Fine sessione: riepilogo con conteggio risposte corrette per materia (non percentuali)
+  - EXAM_SPEC aggiornato secondo richiesta
+*/
+
 let allQuestions = [];
 let sessionQuestions = [];
 let selectedAnswers = [];
@@ -10,9 +19,11 @@ let examTimeLeft = 600;
 let examTimerInterval = null;
 
 const EXAM_SPEC = {
-  "agricoltura": 5,
-  "pronto soccorso": 5,
-  "legislazione": 5
+  "legislazione": 14,
+  "zoologia": 7,
+  "agricoltura": 4,
+  "armi": 4,
+  "pronto soccorso": 1
 };
 
 const setup = document.getElementById("setup");
@@ -23,32 +34,56 @@ const questionBox = document.getElementById("questionBox");
 const optionsBox = document.getElementById("options");
 const progressCurrent = document.getElementById("currentNum");
 const progressTotal = document.getElementById("totalNum");
+const subjectTag = document.getElementById("subjectTag");
 
 const examTimer = document.getElementById("examTimer");
 const timerValue = document.getElementById("timerValue");
 
-document.getElementById("startBtn").addEventListener("click", startSession);
-document.getElementById("nextBtn").addEventListener("click", nextQuestion);
-document.getElementById("prevBtn").addEventListener("click", prevQuestion);
-document.getElementById("stopBtn").addEventListener("click", endSession);
-document.getElementById("restartBtn").addEventListener("click", () => location.reload());
+const startBtn = document.getElementById("startBtn");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const stopBtn = document.getElementById("stopBtn");
+const restartBtn = document.getElementById("restartBtn");
+const summaryText = document.getElementById("summaryText");
+
+startBtn.addEventListener("click", startSession);
+nextBtn.addEventListener("click", nextQuestion);
+prevBtn.addEventListener("click", prevQuestion);
+stopBtn.addEventListener("click", () => {
+  if (currentMode === "exam") {
+    // confirm final submission
+    if (!confirm("Sei sicuro di voler consegnare l'esame?")) return;
+  } else {
+    if (!confirm("Vuoi interrompere la sessione di training?")) return;
+  }
+  endSession();
+});
+restartBtn.addEventListener("click", () => location.reload());
 
 window.addEventListener("load", () => {
   fetch("questions.json")
-    .then(r => r.json())
+    .then(r => {
+      if (!r.ok) throw new Error("Impossibile caricare questions.json");
+      return r.json();
+    })
     .then(data => {
       allQuestions = data;
+    })
+    .catch(err => {
+      console.error("Errore caricamento questions.json:", err);
+      alert("Errore caricamento domande. Controlla questions.json.");
     });
 });
 
+/* TIMER */
 function startExamTimer() {
   examTimeLeft = 600;
   updateTimerDisplay();
 
+  if (examTimerInterval) clearInterval(examTimerInterval);
   examTimerInterval = setInterval(() => {
     examTimeLeft--;
     updateTimerDisplay();
-
     if (examTimeLeft <= 0) {
       clearInterval(examTimerInterval);
       alert("Tempo scaduto! L'esame è stato consegnato.");
@@ -63,6 +98,7 @@ function updateTimerDisplay() {
   timerValue.textContent = `${m}:${s.toString().padStart(2, "0")}`;
 }
 
+/* SESSIONE */
 function startSession() {
   if (!allQuestions.length) {
     alert("Nessuna domanda disponibile.");
@@ -72,14 +108,22 @@ function startSession() {
   currentMode = document.querySelector('input[name="mode"]:checked').value;
   selectedAnswers = [];
 
+  // set stop button label depending on mode
+  stopBtn.textContent = currentMode === "exam" ? "Consegna Esame" : "Stop";
+
   if (currentMode === "training") {
+    // Training: immediate feedback, use all questions shuffled
+    if (examTimerInterval) {
+      clearInterval(examTimerInterval);
+      examTimerInterval = null;
+    }
     examTimer.classList.add("hidden");
-    clearInterval(examTimerInterval);
 
     sessionQuestions = shuffle(allQuestions.slice());
     progressTotal.textContent = sessionQuestions.length;
 
   } else {
+    // Exam: build sessionQuestions according to EXAM_SPEC
     examTimer.classList.remove("hidden");
     startExamTimer();
 
@@ -94,11 +138,13 @@ function startSession() {
       const avail = (grouped[subj] || []).length;
       if (avail < need) missing.push({ subj, need, avail });
     }
-
     if (missing.length) {
       let msg = "Non ci sono abbastanza domande per la modalità Esame:\n";
       missing.forEach(m => msg += `- ${m.subj}: richieste ${m.need}, disponibili ${m.avail}\n`);
+      msg += "Carica più domande o usa Training.";
       alert(msg);
+      examTimer.classList.add("hidden");
+      clearInterval(examTimerInterval);
       return;
     }
 
@@ -107,7 +153,6 @@ function startSession() {
       const pool = grouped[subj].slice();
       sessionQuestions = sessionQuestions.concat(shuffle(pool).slice(0, need));
     }
-
     sessionQuestions = shuffle(sessionQuestions);
     progressTotal.textContent = sessionQuestions.length;
   }
@@ -120,34 +165,73 @@ function startSession() {
   showQuestion();
 }
 
+/* SHOW QUESTION */
 function showQuestion() {
   const q = sessionQuestions[currentIndex];
   progressCurrent.textContent = currentIndex + 1;
-
+  progressTotal.textContent = sessionQuestions.length;
+  subjectTag.textContent = q.subject || "";
   questionBox.textContent = q.question;
   optionsBox.innerHTML = "";
 
+  // ensure selectedAnswers array has slot
+  if (selectedAnswers.length < sessionQuestions.length) {
+    selectedAnswers.length = sessionQuestions.length;
+  }
+
   q.options.forEach((opt, i) => {
     const btn = document.createElement("button");
+    btn.type = "button";
     btn.textContent = opt;
+    btn.className = "";
 
-    if (selectedAnswers[currentIndex] === i) {
-      btn.classList.add("selected");
+    // Training mode: if answered, show immediate feedback (correct/incorrect)
+    if (currentMode === "training") {
+      if (selectedAnswers[currentIndex] != null) {
+        // disable all and show correct/incorrect
+        if (i === q.correct) btn.classList.add("correct");
+        if (selectedAnswers[currentIndex] === i && i !== q.correct) btn.classList.add("incorrect");
+        btn.disabled = true;
+      }
+    } else {
+      // Exam mode: highlight selected only (no feedback)
+      if (selectedAnswers[currentIndex] === i) btn.classList.add("selected");
     }
 
     btn.addEventListener("click", () => {
-      selectedAnswers[currentIndex] = i;
-      showQuestion();
-      document.getElementById("nextBtn").disabled = false;
+      if (currentMode === "training") {
+        // immediate feedback: lock selection, highlight correct and incorrect
+        selectedAnswers[currentIndex] = i;
+        // mark buttons accordingly by re-rendering
+        showQuestion();
+        // enable next
+        nextBtn.disabled = false;
+      } else {
+        // exam: allow changing answer, no immediate feedback
+        selectedAnswers[currentIndex] = i;
+        // re-render to show selected state
+        showQuestion();
+        nextBtn.disabled = false;
+      }
     });
 
     optionsBox.appendChild(btn);
   });
 
-  document.getElementById("prevBtn").disabled = currentIndex === 0;
-  document.getElementById("nextBtn").disabled = selectedAnswers[currentIndex] == null;
+  // Controls behavior:
+  if (currentMode === "training") {
+    // In training: no going back to change previous answers
+    prevBtn.disabled = true;
+    // Next enabled only after answering current
+    nextBtn.disabled = selectedAnswers[currentIndex] == null;
+  } else {
+    // In exam: allow prev/next navigation
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= sessionQuestions.length - 1 || selectedAnswers[currentIndex] == null;
+  }
 }
 
+/* NAVIGATION */
 function nextQuestion() {
   if (currentIndex < sessionQuestions.length - 1) {
     currentIndex++;
@@ -156,30 +240,51 @@ function nextQuestion() {
 }
 
 function prevQuestion() {
-  if (currentIndex > 0) {
+  if (currentMode === "exam" && currentIndex > 0) {
     currentIndex--;
     showQuestion();
   }
 }
 
+/* END SESSION: show per-subject correct counts */
 function endSession() {
-  clearInterval(examTimerInterval);
+  if (examTimerInterval) {
+    clearInterval(examTimerInterval);
+    examTimerInterval = null;
+  }
 
-  let correct = 0;
+  // compute correct counts per subject
+  const perSubject = {};
   sessionQuestions.forEach((q, i) => {
-    if (selectedAnswers[i] === q.correct) correct++;
+    const subj = q.subject || "altro";
+    if (!perSubject[subj]) perSubject[subj] = { correct: 0, total: 0 };
+    perSubject[subj].total++;
+    if (selectedAnswers[i] === q.correct) perSubject[subj].correct++;
   });
 
-  const total = sessionQuestions.length;
-  const score = Math.round((correct / total) * 100);
+  // build summary text: show counts per subject (correct / total)
+  let out = "";
+  const subjectsSorted = Object.keys(perSubject).sort();
+  subjectsSorted.forEach(s => {
+    out += `${s}: ${perSubject[s].correct} / ${perSubject[s].total} corrette\n`;
+  });
 
-  summaryText.textContent =
-    `Hai risposto correttamente a ${correct} domande su ${total}.\nPunteggio: ${score}%`;
+  // overall total
+  const totalCorrect = sessionQuestions.reduce((acc, q, i) => acc + (selectedAnswers[i] === q.correct ? 1 : 0), 0);
+  out += `\nTotale corrette: ${totalCorrect} / ${sessionQuestions.length}`;
+
+  summaryText.textContent = out;
 
   quiz.classList.add("hidden");
   summary.classList.remove("hidden");
 }
 
+/* UTIL */
 function shuffle(arr) {
-  return arr.sort(() => Math.random() - 0.5);
+  // Fisher-Yates
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
