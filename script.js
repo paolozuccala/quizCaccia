@@ -60,6 +60,8 @@ function loadQuestionsFromFetched(data){
   return false;
 }
 
+console.log("SCRIPT ESEGUITO");
+
 window.addEventListener('load', () => {
   // prova a caricare questions.json dalla root (quando ospitato)
   fetch('questions.json').then(r => {
@@ -212,3 +214,4 @@ function resetToSetup(){
   quiz.classList.add('hidden');
   setup.classList.remove('hidden');
 }
+
