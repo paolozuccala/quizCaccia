@@ -1,0 +1,86 @@
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --accent:#2b7cff;
+  --success:#2ecc71;
+  --danger:#e74c3c;
+  --text:#222;
+  --muted:#666;
+  --subject-bg:#eef6ff;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{
+  max-width:900px;
+  margin:20px auto;
+  padding:16px;
+}
+
+.card{
+  background:var(--card);
+  padding:16px;
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(20,20,40,0.06);
+  margin-bottom:16px;
+}
+
+.hidden{display:none}
+
+header h1{margin:0;font-size:1.4rem}
+.subtitle{color:var(--muted);margin-top:6px;font-size:0.95rem}
+
+.row{margin-bottom:12px}
+label{display:block;margin-bottom:6px}
+input[type="number"], input[type="file"]{
+  width:100%;
+  padding:10px;
+  font-size:1rem;
+  border-radius:6px;
+  border:1px solid #ddd;
+}
+
+.mode label{margin-right:12px}
+
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  padding:10px 14px;
+  border-radius:8px;
+  border:0;
+  cursor:pointer;
+  background:#eee;
+}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.danger{background:var(--danger);color:#fff}
+
+.progress{font-size:0.95rem;color:var(--muted);margin-bottom:8px}
+.subjectTag{display:inline-block;padding:6px 10px;border-radius:8px;background:var(--subject-bg);color:var(--accent);margin-bottom:8px;font-weight:600}
+.questionBox{font-weight:600;margin-bottom:12px;font-size:1.05rem}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #e6e6e6;
+  background:#fafafa;
+  cursor:pointer;
+  text-align:left;
+}
+.option.disabled{pointer-events:none;opacity:0.9}
+.option.correct{background:rgba(46,204,113,0.12);border-color:var(--success)}
+.option.incorrect{background:rgba(231,76,60,0.08);border-color:var(--danger)}
+
+.summaryText{white-space:pre-wrap;font-family:inherit}
+
+.footer{text-align:center;color:var(--muted);font-size:0.85rem;margin-top:8px}
+
+/* Mobile */
+@media (max-width:600px){
+  .container{padding:12px;margin:12px}
+  .btn{flex:1}
+}

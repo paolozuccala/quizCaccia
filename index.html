@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz Caccia - Allenamento ed Esame</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Quiz Caccia</h1>
+      <p class="subtitle">Allenati o simula la prova d'esame</p>
+    </header>
+
+    <section id="setup" class="card">
+      <div class="row">
+        <label>Modalità</label>
+        <div class="mode">
+          <label><input type="radio" name="mode" value="training" checked /> Training</label>
+          <label><input type="radio" name="mode" value="exam" /> Esame</label>
+        </div>
+      </div>
+
+      <div id="trainingControls" class="row">
+        <label for="numQuestions">Quante domande vuoi provare?</label>
+        <input id="numQuestions" type="number" min="1" value="10" />
+      </div>
+
+      <div class="row">
+        <label>Carica domande (opzionale)</label>
+        <input id="fileInput" type="file" accept=".json" />
+        <small class="muted">Se non carichi nulla verranno usate domande di esempio.</small>
+      </div>
+
+      <div class="controls">
+        <button id="startBtn" class="btn primary">Inizia</button>
+      </div>
+    </section>
+
+    <section id="quiz" class="card hidden">
+      <div id="progress" class="progress">Domanda <span id="currentNum">0</span> / <span id="totalNum">0</span></div>
+      <div id="subjectTag" class="subjectTag"></div>
+      <div id="questionBox" class="questionBox"></div>
+      <div id="options" class="options" role="list"></div>
+
+      <div class="controls">
+        <button id="nextBtn" class="btn" disabled>Prossima domanda</button>
+        <button id="stopBtn" class="btn danger">Stop</button>
+      </div>
+    </section>
+
+    <section id="summary" class="card hidden">
+      <h2>Riepilogo</h2>
+      <pre id="summaryText" class="summaryText"></pre>
+      <div class="controls">
+        <button id="restartBtn" class="btn">Ricomincia</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <small>Progettato per esercitarsi alle domande d'esame di caccia</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
