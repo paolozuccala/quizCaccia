@@ -100,7 +100,10 @@ function startSession(){
   } else {
     // Exam mode: selezione per materia secondo EXAM_SPEC
     const grouped = {};
-    allQuestions.forEach(q => grouped[q.subject] = grouped[q.subject] || [] , grouped[q.subject].push(q));
+    allQuestions.forEach(q => {
+  if (!grouped[q.subject]) grouped[q.subject] = [];
+  grouped[q.subject].push(q);
+});
     const missing = [];
     for(const [subj, need] of Object.entries(EXAM_SPEC)){
       const avail = (grouped[subj] || []).length;
@@ -214,4 +217,5 @@ function resetToSetup(){
   quiz.classList.add('hidden');
   setup.classList.remove('hidden');
 }
+
 
