@@ -2,11 +2,12 @@ console.log("SCRIPT ESEGUITO");
 
 /*
   main.js aggiornato:
-  - Exam: timer 10 minuti, compare solo in esame
+  - Timer visibile solo durante la modalità Esame (element presente ma hidden fino all'avvio esame)
   - Training: feedback immediato, evidenzia corretta in verde, non permette tornare indietro
+  - Exam: timer 10 minuti, nessun feedback immediato, possibilità di cambiare risposta e tornare indietro
   - Stop button: "Stop" in training, "Consegna Esame" in exam
   - Riepilogo training: considera solo le domande a cui l'utente ha risposto prima di premere Stop
-  - Riepilogo mostra conteggio corrette per materia (non percentuali)
+  - Riepilogo esame: mostra conteggio per materia e lista dettagliata delle domande con risposta corretta e risposta utente
   - EXAM_SPEC: legislazione 14, zoologia 7, agricoltura 4, armi 4, pronto soccorso 1
 */
 
@@ -249,6 +250,7 @@ function prevQuestion() {
 /* END SESSION: show per-subject correct counts
    - Training: consider only questions the user answered (selectedAnswers[i] != null)
    - Exam: consider all sessionQuestions (unanswered count as incorrect)
+   - Exam: additionally show detailed list of questions with correct answer and user's answer
 */
 function endSession() {
   if (examTimerInterval) {
@@ -260,14 +262,12 @@ function endSession() {
   sessionQuestions.forEach((q, i) => {
     const subj = q.subject || "altro";
     if (!perSubject[subj]) perSubject[subj] = { correct: 0, totalAnswered: 0 };
-    // Training: count only if user answered this question
     if (currentMode === "training") {
       if (selectedAnswers[i] != null) {
         perSubject[subj].totalAnswered++;
         if (selectedAnswers[i] === q.correct) perSubject[subj].correct++;
       }
     } else {
-      // Exam: every question in sessionQuestions counts toward total (answered or not)
       perSubject[subj].totalAnswered++;
       if (selectedAnswers[i] === q.correct) perSubject[subj].correct++;
     }
@@ -280,16 +280,41 @@ function endSession() {
     out += `${s}: ${perSubject[s].correct} / ${perSubject[s].totalAnswered} corrette\n`;
   });
 
-  // overall total (for training counts only answered questions)
+  // overall totals
   const totalAnswered = sessionQuestions.reduce((acc, q, i) => {
     if (currentMode === "training") return acc + (selectedAnswers[i] != null ? 1 : 0);
     return acc + 1;
   }, 0);
   const totalCorrect = sessionQuestions.reduce((acc, q, i) => acc + (selectedAnswers[i] === q.correct ? 1 : 0), 0);
 
-  out += `\nTotale corrette: ${totalCorrect} / ${totalAnswered}`;
+  out += `\nTotale corrette: ${totalCorrect} / ${totalAnswered}\n`;
 
-  summaryText.textContent = out;
+  // If exam mode, append detailed list of questions with correct answer and user's answer
+  if (currentMode === "exam") {
+    // build HTML for detailed list
+    let html = `<div class="exam-list">`;
+    sessionQuestions.forEach((q, i) => {
+      const userIdx = selectedAnswers[i];
+      const userText = userIdx == null ? "<em>Non risposta</em>" : escapeHtml(q.options[userIdx]);
+      const correctText = escapeHtml(q.options[q.correct]);
+      const isCorrect = userIdx === q.correct;
+      const itemClass = isCorrect ? "ans correct" : "ans incorrect";
+
+      html += `<div class="exam-item">`;
+      html += `<div class="q">${escapeHtml(q.question)}</div>`;
+      html += `<div class="meta">Materia: ${escapeHtml(q.subject || "altro")}</div>`;
+      html += `<div class="${itemClass}"><strong>Risposta corretta:</strong> ${correctText}</div>`;
+      html += `<div class="${isCorrect ? "ans correct" : "ans incorrect"}"><strong>Tua risposta:</strong> ${userText}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+
+    // combine textual summary and detailed HTML
+    summaryText.innerHTML = `<pre style="white-space:pre-wrap;font-family:monospace;">${escapeHtml(out)}</pre>` + html;
+  } else {
+    // training: plain text summary (counts only answered)
+    summaryText.textContent = out;
+  }
 
   quiz.classList.add("hidden");
   summary.classList.remove("hidden");
@@ -303,4 +328,14 @@ function shuffle(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+function escapeHtml(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
