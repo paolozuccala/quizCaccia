@@ -1,4 +1,4 @@
-// script.js - Quiz Caccia con modalità Esame e Training continuo
+// script.js - Quiz Caccia con modalità Esame e Training senza ripetizioni
 const EXAM_SPEC = {
   "legislazione": 14,
   "zoologia": 7,
@@ -30,7 +30,6 @@ const summary = document.getElementById('summary');
 const summaryText = document.getElementById('summaryText');
 const restartBtn = document.getElementById('restartBtn');
 const subjectTag = document.getElementById('subjectTag');
-const trainingControls = document.getElementById('trainingControls');
 
 const SAMPLE_QUESTIONS = [
   {"id":1,"question":"Qual è la stagione di caccia consentita per la specie X?","options":["Dal 1 gennaio","Dal 15 marzo","Dal 1 settembre"],"correct":2,"subject":"legislazione"},
@@ -93,9 +92,9 @@ function startSession(){
 
   const mode = document.querySelector('input[name="mode"]:checked').value;
   if(mode === 'training'){
-    // Training continuo: usa tutte le domande in ordine casuale e, se finiscono, ricomincia
+    // Training senza ripetizioni: usa tutte le domande mescolate una sola volta
     sessionQuestions = shuffle(allQuestions.slice());
-    progressTotal.textContent = '∞';
+    progressTotal.textContent = sessionQuestions.length;
   } else {
     // Exam mode: selezione per materia secondo EXAM_SPEC
     const grouped = {};
@@ -129,7 +128,8 @@ function startSession(){
 
 // render domanda corrente
 function renderQuestion(q){
-  subjectTag.textContent = q.subject ? q.subject.toUpperCase() : '';
+  // mostra soggetto con prima lettera maiuscola
+  subjectTag.textContent = q.subject ? (q.subject.charAt(0).toUpperCase() + q.subject.slice(1)) : '';
   questionBox.textContent = q.question;
   optionsDiv.innerHTML = '';
   q.options.forEach((opt, idx) => {
@@ -171,16 +171,12 @@ function selectOption(selectedIdx, correctIdx, btn){
 // prossima domanda
 function nextQuestion(){
   currentIndex++;
-  // se in training e finisco le domande, ricomincio con nuovo shuffle
   const mode = document.querySelector('input[name="mode"]:checked').value;
+  // se supero l'ultima domanda
   if(currentIndex >= sessionQuestions.length){
-    if(mode === 'training'){
-      sessionQuestions = shuffle(allQuestions.slice());
-      currentIndex = 0;
-    } else {
-      showSummary();
-      return;
-    }
+    // in Training non ricomincio: termino e mostro riepilogo
+    showSummary();
+    return;
   }
   renderQuestion(sessionQuestions[currentIndex]);
 }
@@ -189,13 +185,14 @@ function nextQuestion(){
 function showSummary(){
   quiz.classList.add('hidden');
   summary.classList.remove('hidden');
-  const total = (document.querySelector('input[name="mode"]:checked').value === 'training') ? askedCount : sessionQuestions.length;
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  const total = (mode === 'training') ? askedCount : sessionQuestions.length;
   const errors = total - correctCount;
   let text = `Hai risposto correttamente a ${correctCount} domande su ${total}.\nErrori totali: ${errors}\n\nDettaglio per materia:\n`;
   for(const [subj, stats] of Object.entries(perSubjectStats)){
     text += `- ${subj}: corrette ${stats.correct || 0} / ${stats.asked || 0}; errori ${stats.errors || 0}\n`;
   }
-  if(document.querySelector('input[name="mode"]:checked').value === 'exam'){
+  if(mode === 'exam'){
     let passed = true;
     const reasons = [];
     if(errors > MAX_TOTAL_ERRORS){ passed = false; reasons.push(`Troppi errori totali (${errors} > ${MAX_TOTAL_ERRORS})`); }
