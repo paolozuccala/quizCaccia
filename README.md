@@ -1,4 +1,5 @@
 quizCaccia — Descrizione
+
 quizCaccia è un’applicazione web per esercitarsi alle domande dell’esame venatorio. Funziona interamente lato client: basta un browser moderno, nessun backend né installazione. Offre modalità Training (con feedback immediato) e Esame (simulazione fedele con timer e distribuzione ufficiale).
 
 Funzionalità principali
