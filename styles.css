@@ -177,11 +177,37 @@ header h1 {
 .ans.correct { background:#e6f7e6; border:1px solid var(--correct); color:#0b5a0b; }
 .ans.incorrect { background:#ffecec; border:1px solid var(--incorrect); color:#7a1b1b; }
 
-/* Responsive */
+/* Subject select row */
+.subject-row { margin-top: 12px; }
+
+/* Select styling */
+.select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  font-size: 0.98rem;
+  color: #111;
+  min-width: 220px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Small caret icon alignment (pure CSS) */
+.select:focus {
+  outline: 2px solid rgba(0,119,204,0.18);
+  box-shadow: 0 4px 10px rgba(0,119,204,0.06);
+}
+
+/* Ensure label and select wrap nicely on small screens */
 @media (max-width:520px){
   .container { padding:12px; }
   .timerInner { min-width: 180px; }
   .controls { flex-direction:column; align-items:stretch; }
   .quiz-controls { flex-direction:column; align-items:stretch; }
   .left-controls, .right-controls { justify-content:space-between; }
+
+  .row { flex-direction:column; align-items:stretch; gap:8px; }
+  .label-inline { min-width: auto; }
+  .select { width:100%; min-width: auto; }
 }
