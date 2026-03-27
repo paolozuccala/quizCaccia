@@ -69,7 +69,7 @@ header h1 {
 .btn.primary { background: var(--primary); color: #fff; }
 .btn.danger { background: var(--danger); color: #fff; }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 .examTimer {
   margin-top: 14px;
