@@ -17,4 +17,4 @@ File principali
 Formato domanda (questions.json)
 Ogni domanda è un oggetto con i campi: id, question, options (array di 3), correct (0/1/2), subject (materia normalizzata).
 
-Autore: Paolo Zuccalà Maganzini — sviluppato con assistenza tecnica di Microsoft Copilot.
+Autore: Paolo Zuccala' Maganzini
