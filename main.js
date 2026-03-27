@@ -2,11 +2,15 @@ console.log("SCRIPT ESEGUITO");
 
 /*
   main.js aggiornato:
-  - Timer visibile solo durante la modalità Esame (element presente ma hidden fino all'avvio esame)
+  - Timer Esame impostato a 30 minuti
+  - Regole di superamento applicate solo in modalità Esame:
+    * Bocciato se >= 4 errori totali
+    * Bocciato se >= 2 errori in qualsiasi materia
+  - Include modalità "Training per materia" (select popolato da questions.json)
+  - Normalizzazione subject per matching coerente
   - Training: feedback immediato, evidenzia corretta in verde, non permette tornare indietro
-  - Exam: timer 10 minuti, nessun feedback immediato, possibilità di cambiare risposta e tornare indietro
-  - Stop button: "Stop" in training, "Consegna Esame" in exam
-  - Riepilogo training: considera solo le domande a cui l'utente ha risposto prima di premere Stop
+  - Exam: timer 30 minuti, nessun feedback immediato, possibilità di cambiare risposta e tornare indietro
+  - Riepilogo training: considera solo le domande a cui l'utente ha risposto
   - Riepilogo esame: mostra conteggio per materia e lista dettagliata delle domande con risposta corretta e risposta utente
   - EXAM_SPEC: legislazione 14, zoologia 7, agricoltura 4, armi 4, pronto soccorso 1
 */
@@ -17,7 +21,7 @@ let selectedAnswers = [];
 let currentIndex = 0;
 let currentMode = "training";
 
-let examTimeLeft = 600;
+let examTimeLeft = 1800; // 30 minuti in secondi
 let examTimerInterval = null;
 
 const EXAM_SPEC = {
@@ -48,6 +52,49 @@ const stopBtn = document.getElementById("stopBtn");
 const restartBtn = document.getElementById("restartBtn");
 const summaryText = document.getElementById("summaryText");
 
+// ----------------- Utility: subject normalization & select population -----------------
+function normalizeSubject(s) {
+  if (!s) return "";
+  return String(s).trim().toLowerCase();
+}
+function prettySubject(s) {
+  if (!s) return "";
+  const n = normalizeSubject(s);
+  return n.charAt(0).toUpperCase() + n.slice(1);
+}
+function populateSubjectSelect(questions) {
+  const select = document.getElementById('subjectSelect');
+  if (!select) return;
+  const subjects = Array.from(new Set(questions.map(q => normalizeSubject(q.subject)).filter(Boolean)));
+  subjects.sort();
+  while (select.options.length > 1) select.remove(1);
+  subjects.forEach(sub => {
+    const opt = document.createElement('option');
+    opt.value = sub;
+    opt.textContent = prettySubject(sub);
+    select.appendChild(opt);
+  });
+}
+function updateSubjectRowVisibility() {
+  const row = document.getElementById('subjectRow');
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  if (mode === 'training') {
+    row.classList.remove('hidden');
+  } else {
+    row.classList.add('hidden');
+    const sel = document.getElementById('subjectSelect');
+    if (sel) sel.value = '';
+  }
+}
+function filterQuestionsBySubject(allQuestions) {
+  const sel = document.getElementById('subjectSelect');
+  if (!sel) return allQuestions.slice();
+  const selected = sel.value;
+  if (!selected) return allQuestions.slice();
+  return allQuestions.filter(q => normalizeSubject(q.subject) === selected);
+}
+
+// ----------------- Event wiring -----------------
 startBtn.addEventListener("click", startSession);
 nextBtn.addEventListener("click", nextQuestion);
 prevBtn.addEventListener("click", prevQuestion);
@@ -61,6 +108,7 @@ stopBtn.addEventListener("click", () => {
 });
 restartBtn.addEventListener("click", () => location.reload());
 
+// ----------------- Fetch questions and initialize select -----------------
 window.addEventListener("load", () => {
   fetch("questions.json")
     .then(r => {
@@ -68,7 +116,21 @@ window.addEventListener("load", () => {
       return r.json();
     })
     .then(data => {
-      allQuestions = data;
+      // normalizza subject in memoria
+      allQuestions = data.map(q => ({
+        ...q,
+        subject: q.subject ? String(q.subject).trim() : ""
+      }));
+
+      populateSubjectSelect(allQuestions);
+      updateSubjectRowVisibility();
+
+      document.querySelectorAll('input[name="mode"]').forEach(radio => {
+        radio.addEventListener('change', updateSubjectRowVisibility);
+      });
+
+      // salva per debug
+      window._allQuestions = allQuestions;
     })
     .catch(err => {
       console.error("Errore caricamento questions.json:", err);
@@ -76,9 +138,9 @@ window.addEventListener("load", () => {
     });
 });
 
-/* TIMER */
+// ----------------- TIMER -----------------
 function startExamTimer() {
-  examTimeLeft = 600;
+  examTimeLeft = 1800; // 30 minuti
   updateTimerDisplay();
 
   if (examTimerInterval) clearInterval(examTimerInterval);
@@ -87,6 +149,7 @@ function startExamTimer() {
     updateTimerDisplay();
     if (examTimeLeft <= 0) {
       clearInterval(examTimerInterval);
+      examTimerInterval = null;
       alert("Tempo scaduto! L'esame è stato consegnato.");
       endSession();
     }
@@ -99,7 +162,7 @@ function updateTimerDisplay() {
   timerValue.textContent = `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-/* SESSIONE */
+// ----------------- SESSIONE -----------------
 function startSession() {
   if (!allQuestions.length) {
     alert("Nessuna domanda disponibile.");
@@ -112,15 +175,25 @@ function startSession() {
   // set stop button label depending on mode
   stopBtn.textContent = currentMode === "exam" ? "Consegna Esame" : "Stop";
 
+  // disable start to avoid doppio click
+  startBtn.disabled = true;
+
   if (currentMode === "training") {
-    // Training: immediate feedback, use all questions shuffled
+    // Training: immediate feedback, use all questions shuffled (o filtrate per materia)
     if (examTimerInterval) {
       clearInterval(examTimerInterval);
       examTimerInterval = null;
     }
     examTimer.classList.add("hidden");
 
-    sessionQuestions = shuffle(allQuestions.slice());
+    const filtered = filterQuestionsBySubject(allQuestions);
+    if (!filtered.length) {
+      alert("Non ci sono domande per la materia selezionata. Seleziona un'altra materia o usa Tutte le materie.");
+      startBtn.disabled = false;
+      return;
+    }
+
+    sessionQuestions = shuffle(filtered.slice());
     progressTotal.textContent = sessionQuestions.length;
 
   } else {
@@ -130,8 +203,9 @@ function startSession() {
 
     const grouped = {};
     allQuestions.forEach(q => {
-      if (!grouped[q.subject]) grouped[q.subject] = [];
-      grouped[q.subject].push(q);
+      const subj = normalizeSubject(q.subject);
+      if (!grouped[subj]) grouped[subj] = [];
+      grouped[subj].push(q);
     });
 
     const missing = [];
@@ -146,6 +220,7 @@ function startSession() {
       alert(msg);
       examTimer.classList.add("hidden");
       clearInterval(examTimerInterval);
+      startBtn.disabled = false;
       return;
     }
 
@@ -158,6 +233,9 @@ function startSession() {
     progressTotal.textContent = sessionQuestions.length;
   }
 
+  // initialize selectedAnswers array with nulls
+  selectedAnswers = new Array(sessionQuestions.length).fill(null);
+
   setup.classList.add("hidden");
   summary.classList.add("hidden");
   quiz.classList.remove("hidden");
@@ -166,20 +244,16 @@ function startSession() {
   showQuestion();
 }
 
-/* SHOW QUESTION */
+// ----------------- SHOW QUESTION -----------------
 function showQuestion() {
   const q = sessionQuestions[currentIndex];
   progressCurrent.textContent = currentIndex + 1;
   progressTotal.textContent = sessionQuestions.length;
-  subjectTag.textContent = q.subject || "";
+  subjectTag.textContent = prettySubject(q.subject || "");
   questionBox.textContent = q.question;
   optionsBox.innerHTML = "";
 
-  // ensure selectedAnswers array has slot
-  if (selectedAnswers.length < sessionQuestions.length) {
-    selectedAnswers.length = sessionQuestions.length;
-  }
-
+  // render options
   q.options.forEach((opt, i) => {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -232,7 +306,7 @@ function showQuestion() {
   }
 }
 
-/* NAVIGATION */
+// ----------------- NAVIGATION -----------------
 function nextQuestion() {
   if (currentIndex < sessionQuestions.length - 1) {
     currentIndex++;
@@ -247,11 +321,7 @@ function prevQuestion() {
   }
 }
 
-/* END SESSION: show per-subject correct counts
-   - Training: consider only questions the user answered (selectedAnswers[i] != null)
-   - Exam: consider all sessionQuestions (unanswered count as incorrect)
-   - Exam: additionally show detailed list of questions with correct answer and user's answer
-*/
+// ----------------- END SESSION -----------------
 function endSession() {
   if (examTimerInterval) {
     clearInterval(examTimerInterval);
@@ -260,7 +330,7 @@ function endSession() {
 
   const perSubject = {};
   sessionQuestions.forEach((q, i) => {
-    const subj = q.subject || "altro";
+    const subj = q.subject ? normalizeSubject(q.subject) : "altro";
     if (!perSubject[subj]) perSubject[subj] = { correct: 0, totalAnswered: 0 };
     if (currentMode === "training") {
       if (selectedAnswers[i] != null) {
@@ -277,21 +347,63 @@ function endSession() {
   let out = "";
   const subjectsSorted = Object.keys(perSubject).sort();
   subjectsSorted.forEach(s => {
-    out += `${s}: ${perSubject[s].correct} / ${perSubject[s].totalAnswered} corrette\n`;
+    out += `${prettySubject(s)}: ${perSubject[s].correct} / ${perSubject[s].totalAnswered} corrette\n`;
   });
 
-  // overall totals
+  // overall totals e calcolo errori
   const totalAnswered = sessionQuestions.reduce((acc, q, i) => {
     if (currentMode === "training") return acc + (selectedAnswers[i] != null ? 1 : 0);
     return acc + 1;
   }, 0);
+
   const totalCorrect = sessionQuestions.reduce((acc, q, i) => acc + (selectedAnswers[i] === q.correct ? 1 : 0), 0);
+  const totalErrors = totalAnswered - totalCorrect;
 
   out += `\nTotale corrette: ${totalCorrect} / ${totalAnswered}\n`;
+  out += `Totale errori: ${totalErrors}\n`;
+
+  // calcolo errori per materia (già abbiamo perSubject con correct e totalAnswered)
+  const subjectErrors = {};
+  Object.keys(perSubject).forEach(s => {
+    const info = perSubject[s];
+    const errs = info.totalAnswered - info.correct;
+    subjectErrors[s] = errs;
+  });
+
+  // Regole di superamento applicate SOLO in modalità Esame
+  let failed = false;
+  let failReasons = [];
+
+  if (currentMode === "exam") {
+    // Regola 1: 4 o più errori totali => bocciato
+    if (totalErrors >= 4) {
+      failed = true;
+      failReasons.push(`Errore: ${totalErrors} errori totali (soglia 4)`);
+    }
+
+    // Regola 2: 2 o più errori in qualsiasi materia => bocciato
+    for (const [s, errs] of Object.entries(subjectErrors)) {
+      if (errs >= 2) {
+        failed = true;
+        failReasons.push(`Errore: ${prettySubject(s)} ha ${errs} errori (soglia 2)`);
+      }
+    }
+  }
+
+  // Aggiungi esito al riepilogo
+  if (currentMode === "exam") {
+    if (failed) {
+      out += `\nESITO: BOCCIATO\n`;
+      out += failReasons.map(r => `- ${r}`).join("\n") + "\n";
+    } else {
+      out += `\nESITO: PROMOSSO\n`;
+    }
+  } else {
+    out += `\nESITO: (valutazione disponibile solo in modalità Esame)\n`;
+  }
 
   // If exam mode, append detailed list of questions with correct answer and user's answer
   if (currentMode === "exam") {
-    // build HTML for detailed list
     let html = `<div class="exam-list">`;
     sessionQuestions.forEach((q, i) => {
       const userIdx = selectedAnswers[i];
@@ -302,14 +414,13 @@ function endSession() {
 
       html += `<div class="exam-item">`;
       html += `<div class="q">${escapeHtml(q.question)}</div>`;
-      html += `<div class="meta">Materia: ${escapeHtml(q.subject || "altro")}</div>`;
+      html += `<div class="meta">Materia: ${escapeHtml(prettySubject(q.subject || "altro"))}</div>`;
       html += `<div class="${itemClass}"><strong>Risposta corretta:</strong> ${correctText}</div>`;
       html += `<div class="${isCorrect ? "ans correct" : "ans incorrect"}"><strong>Tua risposta:</strong> ${userText}</div>`;
       html += `</div>`;
     });
     html += `</div>`;
 
-    // combine textual summary and detailed HTML
     summaryText.innerHTML = `<pre style="white-space:pre-wrap;font-family:monospace;">${escapeHtml(out)}</pre>` + html;
   } else {
     // training: plain text summary (counts only answered)
@@ -318,11 +429,13 @@ function endSession() {
 
   quiz.classList.add("hidden");
   summary.classList.remove("hidden");
+
+  // re-enable start button for a new session
+  startBtn.disabled = false;
 }
 
-/* UTIL */
+// ----------------- UTIL -----------------
 function shuffle(arr) {
-  // Fisher-Yates
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
