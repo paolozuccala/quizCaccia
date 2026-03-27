@@ -85,6 +85,11 @@ function updateSubjectRowVisibility() {
     const sel = document.getElementById('subjectSelect');
     if (sel) sel.value = '';
   }
+
+  // Nascondi il riquadro timer in tutte le modalità diverse da "exam"
+  if (mode !== 'exam') {
+    examTimer.classList.add('hidden');
+  }
 }
 function filterQuestionsBySubject(allQuestions) {
   const sel = document.getElementById('subjectSelect');
@@ -124,6 +129,9 @@ window.addEventListener("load", () => {
 
       populateSubjectSelect(allQuestions);
       updateSubjectRowVisibility();
+
+      // assicurati che il timer sia nascosto all'avvio (visibile solo quando parte l'esame)
+      examTimer.classList.add('hidden');
 
       document.querySelectorAll('input[name="mode"]').forEach(radio => {
         radio.addEventListener('change', updateSubjectRowVisibility);
