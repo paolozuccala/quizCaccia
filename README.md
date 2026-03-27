@@ -5,7 +5,7 @@ quizCaccia è un’applicazione web per esercitarsi alle domande dell’esame ve
 Funzionalità principali
 - Modalità Training: feedback immediato, evidenzia la risposta corretta, non permette di modificare risposte già date.
 - Training per materia: possibilità di esercitarsi su una singola materia selezionabile prima di avviare la sessione.
-- Modalità Esame: timer di 30 minuti, nessun feedback immediato, navigazione avanti/indietro, distribuzione domande conforme alla specifica ufficiale (30 domande di cui 14 di legislazione, 7 di agricoltura, 4 di zoologia, 4 di armi e 1 di pronto soccorso. Si viene bocciati 5 errori totali e con 4 errori in legislazione).
+- Modalità Esame: timer di 30 minuti, nessun feedback immediato, navigazione avanti/indietro, distribuzione domande conforme alla specifica ufficiale (30 domande di cui 14 di legislazione, 7 di agricoltura, 4 di zoologia, 4 di armi e 1 di pronto soccorso. Si viene bocciati >=4 errori totali o con >=2 errori in qualsiasi materia).
 - Riepilogo: in Training mostra solo le domande a cui hai risposto; in Esame mostra conteggi per materia e lista dettagliata con risposte corrette e risposte date.
 - Zero dipendenze server: il progetto è composto da file statici (index.html, styles.css, main.js, questions.json).
 
