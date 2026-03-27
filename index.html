@@ -22,6 +22,14 @@
         </div>
       </div>
 
+      <div class="row subject-row hidden" id="subjectRow">
+        <label class="label-inline" for="subjectSelect">Materia</label>
+        <select id="subjectSelect" class="select" aria-label="Seleziona materia">
+          <option value="">Tutte le materie</option>
+          <!-- Opzioni aggiunte dinamicamente da main.js -->
+        </select>
+      </div>
+
       <div class="controls">
         <button id="startBtn" class="btn primary">Inizia</button>
       </div>
@@ -43,7 +51,7 @@
         Domanda <span id="currentNum">0</span> / <span id="totalNum">0</span>
       </div>
 
-      <div id="subjectTag" class="subjectTag"></div>
+      <div id="subjectTag" class="subjectTag" aria-hidden="true"></div>
       <div id="questionBox" class="questionBox"></div>
 
       <div id="options" class="options" role="list"></div>
